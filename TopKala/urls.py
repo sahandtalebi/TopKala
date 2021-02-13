@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('TopKala_home.urls')),
     path('', include('TopKala_account.urls')),
+    path('', include('TopKala_product.urls')),
 
 ]
 

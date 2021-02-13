@@ -27,6 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'TopKala_home',
+    'TopKala_account',
+    'TopKala_product',
+    'TopKala_category',
 ]
 
 MIDDLEWARE = [
