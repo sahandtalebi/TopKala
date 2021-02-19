@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-
 from TopKala_product.models import Product
 
 
-class ProductList(ListView):
-    template_name = 'product_list.html'
-    model = Product
+def product_list(request):
+    products = Product.objects.all_products()
+    lower_price = Product.objects.lower_price()
+    high_price = Product.objects.high_price()
 
+    context = {
+        'products': products,
+        'lower_price': lower_price,
+        'high_price': high_price,
+    }
 
-class ProductDetail(DetailView):
-    pass
-
+    return render(request, 'product_list.html', context)

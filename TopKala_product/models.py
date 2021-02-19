@@ -15,6 +15,18 @@ def upload_images_path(instance, filename):
     return f"products/{fainal_name}"
 
 
+class ProductManager(models.Manager):
+
+    def all_products(self):
+        return Product.objects.filter(active=True)
+
+    def lower_price(self):
+        return Product.objects.filter(active=True).order_by('price')
+
+    def high_price(self):
+        return Product.objects.filter(active=True).order_by('-price')
+
+
 class Product(models.Model):
     title = models.CharField(max_length=150, verbose_name='موضوع')
     description = models.TextField(verbose_name='توضیحات')
@@ -23,6 +35,8 @@ class Product(models.Model):
     active = models.BooleanField(default=False, verbose_name='وضعیت')
     category = models.ManyToManyField(ProductCategory, verbose_name='دسته بندی')
     visit = models.IntegerField(default=0)
+
+    objects = ProductManager()
 
     class Meta:
         verbose_name = 'محصول'
