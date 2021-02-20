@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from TopKala_product.models import Product
-
+from TopKala_category.models import ProductCategory
 
 def product_list(request):
     products = Product.objects.all_products()
@@ -15,3 +15,10 @@ def product_list(request):
     }
 
     return render(request, 'product_list.html', context)
+
+
+class ProductView(DetailView):
+    model = Product
+    template_name = 'single_product.html'
+
+    extra_context = {'product_category': Product.category}
