@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'TopKala_account',
     'TopKala_product',
     'TopKala_category',
+    'TopKala_attributes',
 ]
 
 MIDDLEWARE = [

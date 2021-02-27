@@ -11,3 +11,9 @@ class ProductCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Book(models.Model):
+    name = models.CharField(max_length=10)
+    rate = models.IntegerField(default=0)
+    free = models.BooleanField(default=True)
