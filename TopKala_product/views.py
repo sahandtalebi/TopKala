@@ -1,8 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render
-
-from TopKala_attributes.models import ProductAttributes
-from TopKala_product.models import Product
+from TopKala_product.models import Product, ProductBrand
 from TopKala_category.models import ProductCategory
 
 
@@ -10,11 +8,15 @@ def product_list(request):
     products = Product.objects.all_products()
     lower_price = Product.objects.lower_price()
     high_price = Product.objects.high_price()
+    categories = ProductCategory.objects.all()
+    product_brand = ProductBrand.objects.all()
 
     context = {
         'products': products,
         'lower_price': lower_price,
         'high_price': high_price,
+        'categories': categories,
+        'product_brand': product_brand,
     }
 
     return render(request, 'product_list.html', context)
@@ -38,13 +40,3 @@ def product_detail(request, *args, **kwargs):
     }
 
     return render(request, 'single_product.html', context)
-
-# class ProductView(DetailView):
-#     model = Product
-#     template_name = 'single_product.html'
-#
-#     def get_product_category(self, **kwargs):
-#         context = super().get_product_category(**kwargs)
-#         print([kwargs])
-#         context['product_category'] = ProductCategory.objects.filter(id=Product.objects.id)
-#         return context

@@ -27,15 +27,28 @@ class ProductManager(models.Manager):
         return Product.objects.filter(active=True).order_by('-price')
 
 
+class ProductBrand(models.Model):
+    name = models.CharField(max_length=120)
+    slug = models.SlugField()
+
+    class Meta:
+        verbose_name = ' برند'
+        verbose_name_plural = 'برند ها'
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     title = models.CharField(max_length=150, verbose_name='موضوع')
+    brand = models.ForeignKey(ProductBrand, on_delete=models.DO_NOTHING, verbose_name='برند', blank=True)
     description = models.TextField(verbose_name='توضیحات')
     price = models.IntegerField(verbose_name='قیمت')
     image = models.ImageField(upload_to=upload_images_path, null=True, blank=True, verbose_name='تصویر شاخص')
     active = models.BooleanField(default=False, verbose_name='وضعیت')
     category = models.ManyToManyField(ProductCategory, verbose_name='دسته بندی')
     visit = models.IntegerField(default=0)
-
+    special_sale = models.BooleanField(default=False, verbose_name='فروش ویژه')
     objects = ProductManager()
 
     class Meta:
