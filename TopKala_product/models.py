@@ -1,4 +1,7 @@
 import os
+
+from django.db.models import Q
+
 from TopKala_category.models import ProductCategory
 from django.db import models
 
@@ -16,15 +19,17 @@ def upload_images_path(instance, filename):
 
 
 class ProductManager(models.Manager):
-
     def all_products(self):
-        return Product.objects.filter(active=True)
+        return self.filter(active=True)
 
     def lower_price(self):
-        return Product.objects.filter(active=True).order_by('price')
+        return self.filter(active=True).order_by('price')
 
     def high_price(self):
-        return Product.objects.filter(active=True).order_by('-price')
+        return self.filter(active=True).order_by('-price')
+
+    def search(self, search_result):
+        return self.filter(Q(title__iexact=search_result))
 
 
 class ProductBrand(models.Model):

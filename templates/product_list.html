@@ -10,8 +10,10 @@
                         <div class="box-header">جستجو در نتایج:</div>
                         <div class="box-content">
                             <div class="ui-input ui-input--quick-search">
-                                <input type="text" class="ui-input-field ui-input-field--cleanable"
-                                       placeholder="نام محصول یا برند مورد نظر را بنویسید…">
+                                <form>
+                                {{ product_search_form. }}
+                                    {% csrf_token %}
+                                    </form>
                                 <span class="ui-input-cleaner"></span>
                             </div>
                         </div>
@@ -33,12 +35,12 @@
                                 </div>
                                 <div class="filter-option">
                                     {% for categore in categories %}
-                                    <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label for="checkbox2">
-                                            {{ categore }}
-                                        </label>
-                                    </div>
+                                        <div class="checkbox">
+                                            <input id="checkbox-category-{{ categore.id }}" type="checkbox">
+                                            <label for="checkbox-category-{{ categore.id }}">
+                                                {{ categore }}
+                                            </label>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -60,32 +62,36 @@
                                     <span class="ui-input-cleaner"></span>
                                 </div>
 
-                             <div class="filter-option">
-                                {% for brand in product_brand %}
-                                    <div class="checkbox">
-                                        <input id="{{ brand.id }}" type="checkbox">
-                                        <label for="checkbox">
-                                            {{ brand }}
-                                        </label>
-                                    </div>
-                                    {% endfor %}
-                                </div>
+                                <div class="filter-option">
 
+
+                                    <div class="filter-option">
+                                        {% for brand in product_brand %}
+                                            <div class="checkbox">
+                                                <input id="checkbox-brand-{{ brand.id }}" type="checkbox">
+                                                <label for="checkbox-brand-{{ brand.id }}">
+                                                    {{ brand }}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="box">
-                        <div class="box-content">
-                            <input type="checkbox" name="checkbox" class="bootstrap-switch" checked/>
-                            <label for="">فقط کالاهای موجود</label>
+                        <div class="box">
+                            <div class="box-content">
+                                <input type="checkbox" name="checkbox" class="bootstrap-switch" checked/>
+                                <label for="">فقط کالاهای موجود</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="box">
-                        <div class="box-content">
-                            <input type="checkbox" name="checkbox" class="bootstrap-switch" checked/>
-                            <label for="">فقط کالاهای آماده ارسال</label>
+                        <div class="box">
+                            <div class="box-content">
+                                <input type="checkbox" name="checkbox" class="bootstrap-switch" checked/>
+                                <label for="">فقط کالاهای آماده ارسال</label>
+                            </div>
                         </div>
-                    </div>
                 </aside>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9 order-2">
                     <div class="breadcrumb-section default">
